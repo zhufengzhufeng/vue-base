@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+  <script src="node_modules/vue/dist/vue.js"></script>
+  <script src="node_modules/sortablejs/Sortable.js"></script>
+</head>
+<body>
+  <!-- 学生成绩表格 -->
+  <!-- bootstrap 都是分为基础和增强 -->
+  <table id="app" class="table table-bordered">
+    <thead>
+      <tr>
+        <th>学生姓名</th>
+        <th>语文成绩</th>
+        <th>数学成绩</th>
+        <th>英语成绩</th>
+      </tr>
+    </thead>
+    <tbody v-draggable="lists">
+      <tr v-for="l in lists" :key="l.id">
+        <td>{{l.name}}</td>
+        <td>{{l.chinese}}</td>
+        <td>{{l.math}}</td>
+        <td>{{l.english}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <script>
+    new Vue({
+      el:'#app',
+      directives:{
+        // el是当前元素 value是当前的传进来的值 vnode 虚拟节点
+        draggable(el,{value},vnode){
+          Sortable.create(el,{
+            animation:200,
+            onEnd:(e)=>{ // 拖拽完毕后
+              let oldIndex = e.oldIndex;
+              let newIndex = e.newIndex;
+              let current = value[oldIndex];// 当前拖拽的那个人 
+              // 把当前这一项从数组中删除这一项
+              value.splice(oldIndex,1);
+              // 把这一项添加到新的位置上
+              value.splice(newIndex,0,current);
+              // 最后可以拿到拖拽后的数据 value
+            }
+          });
+        }
+      },
+      data:{
+        lists:[
+          {id:1,name:'张三',chinese:99,english:30,math:88},
+          {id:2,name:'李四',chinese:69,english:90,math:32},
+          {id:3,name:'王五',chinese:88,english:72,math:65},
+        ]
+      }
+    })
+  </script>
+</body>
+</html>

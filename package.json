@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/zhufengzhufeng/vue-base#readme",
   "dependencies": {
+    "bootstrap": "3",
+    "sortablejs": "^1.7.0",
     "vue": "^2.5.17"
   }
 }
