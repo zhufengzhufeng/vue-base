@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <!-- 如果写了v-model 不需要写value value就失效了 -->
+    <!-- .lazy .number 修饰符 @click.prevent .stop .self -->
+    <input type="text" v-model.lazy="text" >
+    {{text}}
+    <br>
+    <!-- 防止获取的内容是字符串类型 -->
+    <input type="number" v-model.number="number" >
+    {{typeof number}}
+    <br>
+    <!-- 不能给option添加事件,select中是不需要value的,option中需要添加value -->
+    <!-- vue中没有selected 和 checked属性 是不生效的 -->
+    <select v-model="selected" multiple>
+      <option value="" disabled>请选择</option>
+      <option :value="o" v-for="o in options">{{o}}</option>
+    </select>
+    {{selected}}
+    <br>
+    <!-- 如果checkbox是一个 默认true/false,如果是多个需要value  -->
+    <!-- <input type="checkbox" v-model="checked"> {{checked}} -->
+    请勾选你的爱好 
+    跳舞
+    <input type="checkbox" value="跳舞" v-model="checked">
+    唱歌
+    <input type="checkbox" value="唱歌" v-model="checked">
+    {{checked}}
+    <br> 
+    <!-- v-model可以决定radio的分组 -->
+    男<input type="radio" v-model="radio" value="男">
+    女<input type="radio" v-model="radio" value="女">
+    <br>
+    {{radio}}
+  </div>
+  <script src="./node_modules/vue/dist/vue.js"></script>
+  <script>
+    // 输入框  textarea input
+    // 下拉菜单 select
+    // checkbox
+    // radio
+    let vm = new Vue({
+      el:'#app',
+      data:{
+        radio:'男',
+        checked:[],
+        selected:[], // 如果是多选应该采用数组的方式
+        options:['睡觉','吃饭','去厕所'],
+        number:123,
+        text:'hello'
+      }
+    })
+  </script>
+</body>
+</html>

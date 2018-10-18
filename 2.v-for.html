@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <ul>
+      <li v-for="(a,index) in arr" :key="index" ref="lis">{{a}}</li>
+    </ul>
+    <p ref="p">hello</p>
+  </div>
+  <script src="./node_modules/vue/dist/vue.js"></script>
+  <script>
+    let vm = new Vue({
+      el:'#app',
+      data:{
+        arr:['香蕉','苹果','橘子']
+      },
+      mounted(){ // 钩子函数 ajax 回调
+        // this指向的永远是实例
+        // document.getElementById
+        this.$refs.p.style.background = 'red';
+        console.log(this.$refs.lis)
+        // 想在vue中获取dom元素 如果一个元素的话 取到的是对象
+        // 带有v-for 取到的是数组
+        // 不能给两个元素设置同一个ref
+        // console.log(this.$refs.d); 
+      }
+    });
+    // 我们的数据会被代理到vue的实例上
+
+  </script>
+</body>
+</html>
