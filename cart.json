@@ -1,0 +1,20 @@
+[
+  {
+    "isChecked":true,
+    "productName":"联想(Lenovo)",
+    "productPrice":7298,
+    "productCount":3
+  },
+  {
+    "isChecked": false,
+    "productName": "苹果(apple)",
+    "productPrice": 10998,
+    "productCount": 2
+  },
+  {
+    "isChecked": false,
+    "productName": "苹果(apple xr)",
+    "productPrice": 6400,
+    "productCount": 1
+  }
+]
