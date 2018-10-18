@@ -26,4 +26,4 @@ function defineReactive(obj,key,value) {
 observer(obj);
 obj.name.name = 'jw';
 // 增加对象上原本不存在的属性 是无法响应式变化
-console.log(obj.name)
+console.log(obj)

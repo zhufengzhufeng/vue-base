@@ -27,7 +27,7 @@
           handler(){ // 可以调用接口获取结果,有的场景下watch比computed更方便
             setTimeout(()=>{
               this.fullName = this.firstName + this.lastName
-            },1000)
+            },1000);
           },
           immediate:true // 让handler立即执行
         },
@@ -45,7 +45,9 @@
       //   }
       // },
     });
-
+    vm.$watch('firstName',function(){
+     
+    });
     // methods computed 缓存
     // computed watch 异步上
   </script>
