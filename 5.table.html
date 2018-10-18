@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
   <script src="node_modules/vue/dist/vue.js"></script>
   <script src="node_modules/sortablejs/Sortable.js"></script>
 </head>
+
 <body>
   <!-- 学生成绩表格 -->
   <!-- bootstrap 都是分为基础和增强 -->
@@ -32,33 +34,46 @@
   </table>
   <script>
     new Vue({
-      el:'#app',
-      directives:{
+      el: '#app',
+      directives: {
         // el是当前元素 value是当前的传进来的值 vnode 虚拟节点
-        draggable(el,{value},vnode){
-          Sortable.create(el,{
-            animation:200,
-            onEnd:(e)=>{ // 拖拽完毕后
-              let oldIndex = e.oldIndex;
-              let newIndex = e.newIndex;
-              let current = value[oldIndex];// 当前拖拽的那个人 
-              // 把当前这一项从数组中删除这一项
-              value.splice(oldIndex,1);
-              // 把这一项添加到新的位置上
-              value.splice(newIndex,0,current);
-              // 最后可以拿到拖拽后的数据 value
-            }
-          });
+        draggable: {
+          // 执行一次，数据是异步加载过来的
+          // 默认是bind方法 ，也可以写成update
+          // https://cn.vuejs.org/v2/guide/custom-directive.html
+          // 指令的用法
+          update(el, { value }, vnode) {
+            console.log(value)
+            Sortable.create(el, {
+              animation: 200,
+              onEnd: (e) => { // 拖拽完毕后
+                let oldIndex = e.oldIndex;
+                let newIndex = e.newIndex;
+                let current = value[oldIndex];// 当前拖拽的那个人 
+                // 把当前这一项从数组中删除这一项
+                value.splice(oldIndex, 1);
+                // 把这一项添加到新的位置上
+                value.splice(newIndex, 0, current);
+                // 最后可以拿到拖拽后的数据 value
+              }
+            });
+          }
         }
       },
-      data:{
-        lists:[
-          {id:1,name:'张三',chinese:99,english:30,math:88},
-          {id:2,name:'李四',chinese:69,english:90,math:32},
-          {id:3,name:'王五',chinese:88,english:72,math:65},
+      mounted() {
+        setTimeout(() => {
+          this.lists = [{ id: 1, name: '张三', chinese: 99, english: 30, math: 88 },
+          { id: 2, name: '李四', chinese: 69, english: 90, math: 32 },
+          { id: 3, name: '王五', chinese: 88, english: 72, math: 65 },]
+        }, 1000);
+      },
+      data: {
+        lists: [
+
         ]
       }
     })
   </script>
 </body>
+
 </html>

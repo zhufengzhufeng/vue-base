@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    全选 /全不选
+    <input type="checkbox" v-model="selectAll"> <br>
+    <input type="checkbox" v-for="c in checks" v-model="c.selected">
+    <!-- 可以使用计算属性 -->
+  </div>
+  <script src="./node_modules/vue/dist/vue.js"></script>
+  <script>
+    let vm = new Vue({
+      el:'#app',
+      data:{
+        checks:[{selected:false},{selected:false},{selected:true}]
+      },
+      computed:{ // computed/ method 里的this指代的都是实例
+       // 在vue里面使用频率很高
+        selectAll:{
+          get(){ // 默认v-model会调用get方法 用数据计算出来相对应的结果 
+            return this.checks.every(check=>check.selected)
+          },
+          set(val){
+            this.checks.forEach(item =>item.selected = val);
+          }
+        }
+      }
+    })
+  </script>
+</body>
+</html>
