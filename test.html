@@ -19,11 +19,13 @@
     function observer(obj) {
       if (typeof obj !== 'object') return obj;
       for (let key in obj) {
+        // 给对象上的属性 定义响应式的变化
         defineReactive(obj, key, obj[key]);
       }
     }
     function defineReactive(obj, key, value) {
-      observer(value)
+      observer(value);
+      // 有拦截作用域
       Object.defineProperty(obj, key, {
         get() {
           return value;
@@ -39,7 +41,6 @@
     obj.name = {a:1}
     obj.name.a = 100;
     // 增加对象上原本不存在的属性 是无法响应式变化
-    console.log(obj)
     </script>
 </body>
 </html>

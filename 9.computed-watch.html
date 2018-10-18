@@ -1,0 +1,53 @@
+<!-- methods computed watch之间的区别 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+   {{fullName}}
+  </div>
+  <script src="node_modules/vue/dist/vue.js"></script>
+  <script>
+    var vm = new Vue({
+      el:'#app',
+      data:{
+        a:1,
+        firstName:'姜',
+        lastName:'文',
+        fullName:''
+      },
+      // 写代码能用computed 尽量使用computed 
+      watch:{ // watch方法中的this也是当前的实例
+        firstName:{
+          handler(){ // 可以调用接口获取结果,有的场景下watch比computed更方便
+            setTimeout(()=>{
+              this.fullName = this.firstName + this.lastName
+            },1000)
+          },
+          immediate:true // 让handler立即执行
+        },
+        lastName: {
+          handler() {
+            this.fullName = this.firstName + this.lastName
+          },
+          immediate: true
+        }
+      }
+      // computed:{
+      //   fullName(){
+      //     console.log('----------------')
+      //     return this.firstName + this.lastName
+      //   }
+      // },
+    });
+
+    // methods computed 缓存
+    // computed watch 异步上
+  </script>
+</body>
+</html>

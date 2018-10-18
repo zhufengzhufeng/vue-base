@@ -1,0 +1,44 @@
+<!-- methods computed watch之间的区别 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    {{fullName}}
+    {{fullName}}
+    {{fullName}}
+    {{a}}
+  </div>
+  <script src="node_modules/vue/dist/vue.js"></script>
+  <script>
+    // 默认情况我们把页面上的逻辑可以封装到方法中和计算属性中
+    // 但是调用方法时 别的属性变化 也会导致方法重新执行
+    // 计算属性拥有缓存 ,如果依赖的属性不发生变化 就不会重新计算
+    var vm = new Vue({
+      el:'#app',
+      data:{
+        a:1,
+        firstName:'姜',
+        lastName:'文'
+      },
+      computed:{
+        fullName(){
+          console.log('----------------')
+          return this.firstName + this.lastName
+        }
+      },
+      methods:{
+        // fullName(){
+        //   console.log('----------------')
+        //   return this.firstName + this.lastName
+        // }
+      }
+    })
+  </script>
+</body>
+</html>
