@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+  #app div{
+    width: 100px;height: 100px;position: absolute;
+    top:0;left: 0;background: red
+  }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div v-drag.lazy="123"></div>
+    <div v-drag></div>
+    <div v-drag></div>
+  </div>
+  
+  <!-- v-xxx都是vue的指令 自定义的指令
+    指令就是把一些操作dom的功能进行了封装
+    指令分为两种 第一种全局指令 任意实例上都可以调用. 当前实例上的指令
+  -->
+  <script src="./node_modules/vue/dist/vue.js"></script>
+  <script>
+    // 当元素绑定好后执行一次
+    // 指令种不能获取this属性
+    Vue.directive('drag',function (el,bindings,vnode) {
+      // 操作dom
+      el.onmousedown = function (e) {
+          let disX = e.pageX - el.offsetLeft;
+          let disY = e.pageY - el.offsetTop;
+          document.onmousemove = function (e) {
+            e.preventDefault();// 阻止默认行为
+            el.style.left = e.pageX - disX + 'px';
+            el.style.top = e.pageY - disY + 'px';
+          }
+          document.onmouseup = function () {
+            document.onmousemove = document.onmouseup  = null
+          }
+      }
+    });
+    new Vue({
+      el:'#app',
+      data:{a:1}
+      // directives:{
+      //   drag(){
+      //     console.log(this)
+      //   }
+      // }
+    })
+  </script>
+</body>
+</html>
