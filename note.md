@@ -31,3 +31,51 @@
 - 想在vue中获取dom元素 如果一个元素的话 取到的是对象
 - 带有v-for 取到的是数组
 - 不能给两个元素设置同一个ref
+
+## form表单
+- 所有的表单元素都要增加v-model,如果有默认值需要加value
+- checked selected无效的 (数据驱动)主要是给对象的所有属性采用Object.defineProperty来定义,当数据变化时可以调用更新方法
+(如何实现对象的拦截功能)
+
+## 指令
+- 我们指令可以操作dom,封装了公用的逻辑,默认调用bind方法,只会执行一次 bind inserted update unbind
+```
+Vue.directive('drag',function(el,bindings,vnode){})
+```
+- 局部的
+```
+new Vue({
+  directives:{
+    drag:{
+      update(){},
+      bind(el,bindings,vnode){}
+    }
+  }
+})
+```
+
+## 计算属性
+自己的值是通过别的属性推断出来的,这个属性也会放在当前实例上,method,data,computed能不能重名,两种写法 默认调用get方法
+```
+new Vue({
+  data:{a:1}
+  computed:{
+    aa(){
+      return this.a+1
+    }
+  }
+});
+new Vue({
+  data:{a:1}
+  computed:{ // 不支持异步
+    aa:{
+      get(){ // 在接口中获取值后赋予给aa
+        return this.a+1
+      },
+      set(val){
+
+      }
+    }
+  }
+});
+````

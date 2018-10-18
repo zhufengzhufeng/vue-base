@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+   let obj = {
+      name: { name: 'zfpx' },
+      age: 9
+    }
+    function update() {
+      console.log('更新')
+    }
+    // Object.defineProperty
+    function observer(obj) {
+      if (typeof obj !== 'object') return obj;
+      for (let key in obj) {
+        defineReactive(obj, key, obj[key]);
+      }
+    }
+    function defineReactive(obj, key, value) {
+      observer(value)
+      Object.defineProperty(obj, key, {
+        get() {
+          return value;
+        },
+        set(val) {
+          observer(val)
+          update();
+          value = val
+        }
+      })
+    }
+    observer(obj);
+    obj.name = {a:1}
+    obj.name.a = 100;
+    // 增加对象上原本不存在的属性 是无法响应式变化
+    console.log(obj)
+    </script>
+</body>
+</html>
