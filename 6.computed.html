@@ -21,7 +21,7 @@
         checks:[{selected:false},{selected:false},{selected:true}]
       },
       computed:{ // computed/ method 里的this指代的都是实例
-       // 在vue里面使用频率很高
+        // 在vue里面使用频率很高 什么时候用到computed 先想一想能不能用计算属性
         selectAll:{
           get(){ // 默认v-model会调用get方法 用数据计算出来相对应的结果 
             return this.checks.every(check=>check.selected)

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+  <script src="node_modules/vue/dist/vue.js"></script>
+  <script src="node_modules/sortablejs/Sortable.js"></script>
+</head>
+
+<body>
+  <table id="app" class="table table-bordered">
+    <thead>
+      <tr>
+        <th>学生姓名</th>
+        <th @click="active=1,flag*=-1">语文成绩</th>
+        <th @click="active=2,flag*=-1">数学成绩</th>
+        <th @click="active=3,flag*=-1">英语成绩</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="l in computeList" :key="l.id">
+        <td>{{l.name}}</td>
+        <td>{{l.chinese}}</td>
+        <td>{{l.math}}</td>
+        <td>{{l.english}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        active: 0,
+        flag:-1,
+        lists: [{ id: 1, name: '张三', chinese: 99, english: 30, math: 88 },
+        { id: 2, name: '李四', chinese: 69, english: 90, math: 32 },
+        { id: 3, name: '王五', chinese: 88, english: 72, math: 65 },]
+      },
+      computed: {
+        computeList() { // 这个计算属性默认就只有get方法没有set方法.一般用不到set方法
+          if (this.active === 1) {
+            return this.lists.sort((a, b) => (a.chinese - b.chinese)*this.flag);
+          }
+          if (this.active === 2) {
+            return this.lists.sort((a, b) => (a.math - b.math) * this.flag);
+          }
+          if (this.active === 3) {
+            return this.lists.sort((a, b) => (a.english - b.english)* this.flag);
+          }
+          return this.lists
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
